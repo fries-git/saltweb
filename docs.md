@@ -2,6 +2,8 @@
 
 ## Basic Understanding
 
+Each page is a `.sw` file.
+
 Every line of content in your `.sw` file corresponds to a line in the "compiled" HTML file.
 
 Each line is broken up into: `[tag]{content}` and tag case (upper/lower) is unimportant.
