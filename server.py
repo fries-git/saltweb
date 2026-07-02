@@ -32,6 +32,10 @@ def processline(line):
         lines.append(f"<h3>{content}</h3>")
     elif tag == "footer":
         lines.append(f"<footer><small>{content}</small></footer>")
+    elif tag == "link":
+        lines.append(f'<a href="{content}" target="_blank" rel="noopener noreferrer">{content}</a>')
+    elif tag == "pagelink":
+        lines.append(f'<p><a href="/{content}">{content}</a></p>')
 
 for file in folder.glob("*.sw"):
     lines = []
