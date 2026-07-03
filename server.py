@@ -21,7 +21,9 @@ def processline(line):
     if start > 0 and end > start:
         result = line[start:end]
     content = result
+    print(result)
 
+    # The block...
     if tag == "header":
         lines.append(f"<h1>{content}</h1>")
     elif tag == "body":
@@ -36,6 +38,20 @@ def processline(line):
         lines.append(f'<a href="{content}" target="_blank" rel="noopener noreferrer">{content}</a>')
     elif tag == "pagelink":
         lines.append(f'<p><a href="/{content}">{content}</a></p>')
+    elif tag == "code":
+        lines.append(f"<code>{content}</code>")
+    elif tag == "small":
+        lines.append(f"<small>{content}</small>")
+    elif tag == "frame":
+        lines.append(f"<iframe src={content}></iframe>")
+    elif tag == "quote":
+        lines.append(f"<blockquote> - {content}</blockquote>")
+    elif tag == "dialog":
+        lines.append(f"<dialog open>{content}</dialog>")
+    elif tag == "underline":
+        lines.append(f"<u>{content}</u>")
+    elif tag == "bold":
+        lines.append(f"<b>{content}</b>")
 
 for file in folder.glob("*.sw"):
     lines = []
@@ -49,6 +65,7 @@ for file in folder.glob("*.sw"):
             
     with open(f"sites/{fileedit}", "w") as f:
         f.write("<html><body>")
+        f.write('<link rel="stylesheet" href="/static/styles.css">')
         f.write("".join(lines))
         f.write("</body></html>")
 

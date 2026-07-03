@@ -22,6 +22,10 @@ footer -> footer
 
 link -> a
 
-pagelink -> *Pagelink is a unique tag that takes you to the page at content. So: [pagelink]{docs} would take you to server/docs. Its the path to your file.
+code -> code
+
+## Unique Tags
+
+pagelink -> Pagelink is a unique tag that takes you to the page at content. So: [pagelink]{docs} would take you to server/docs. Its the path to your file.
 
 [github.com/fries-git/saltweb](https://github.com/fries-git/saltweb)
