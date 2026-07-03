@@ -1,5 +1,5 @@
 from pathlib import Path
-from flask import Flask, abort
+from flask import Flask, abort, send_from_directory
 from waitress import serve
 
 folder = Path(__file__).parent / "sites"
@@ -35,23 +35,23 @@ def processline(line):
     elif tag == "footer":
         lines.append(f"<footer><small>{content}</small></footer>")
     elif tag == "link":
-        lines.append(f'<a href="{content}" target="_blank" rel="noopener noreferrer">{content}</a>')
+        lines.append(f'<p><a href="{content}" target="_blank" rel="noopener noreferrer">{content}</a></p>')
     elif tag == "pagelink":
         lines.append(f'<p><a href="/{content}">{content}</a></p>')
     elif tag == "code":
-        lines.append(f"<code>{content}</code>")
+        lines.append(f"<p><code>{content}</code></p>")
     elif tag == "small":
-        lines.append(f"<small>{content}</small>")
+        lines.append(f"<p><small>{content}</small></p>")
     elif tag == "frame":
-        lines.append(f"<iframe src={content}></iframe>")
+        lines.append(f"<p><iframe src={content}></iframe></p>")
     elif tag == "quote":
         lines.append(f"<blockquote> - {content}</blockquote>")
     elif tag == "dialog":
         lines.append(f"<dialog open>{content}</dialog>")
     elif tag == "underline":
-        lines.append(f"<u>{content}</u>")
+        lines.append(f"<p><u>{content}</u></p>")
     elif tag == "bold":
-        lines.append(f"<b>{content}</b>")
+        lines.append(f"<p><b>{content}</b></p>")
 
 for file in folder.glob("*.sw"):
     lines = []
@@ -75,6 +75,10 @@ def home():
     if not file_path.exists():
         abort(404)
     return file_path.read_text()
+
+@app.route("/source/<path:filename>")
+def source(filename):
+    return send_from_directory(folder, filename, mimetype="text/plain")
 
 @app.route("/<page>")
 def serve_page(page):
